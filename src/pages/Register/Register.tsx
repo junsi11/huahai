@@ -12,7 +12,8 @@ import { Image } from '@/components/ui/image';
 import { service } from '@/lib/service';
 import { hashPassword, generateSalt, randomId } from '@/lib/crypto';
 
-const BASE = (import.meta.env.MIAODA_CLIENT_BASE_PATH || '').replace(/\/$/, '') + '/';
+const _base = (import.meta.env.MIAODA_CLIENT_BASE_PATH || '').replace(/\/$/, '');
+const BASE = _base ? _base + '/' : '';
 
 export default function RegisterPage() {
   const navigate = useNavigate();

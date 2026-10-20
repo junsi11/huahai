@@ -12,7 +12,7 @@ export function notify(title: string, body?: string): void {
   if (!('Notification' in window)) return;
   if (Notification.permission === 'granted') {
     try {
-      new Notification(title, { body, icon: '/assets/icon.png' });
+      new Notification(title, { body, icon: 'assets/icon.png' });
     } catch {
       /* 忽略 */
     }

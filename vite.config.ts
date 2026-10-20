@@ -12,6 +12,8 @@ const basePath = process.env.MIAODA_CLIENT_BASE_PATH || '/';
 const cdnPrefix = process.env.MIAODA_RESOURCE_CDN_PREFIX;
 // 打包安卓 APK 时用相对路径，适配 file:///android_asset 本地加载
 const isApk = process.env.APK_BUILD === '1';
+// GitHub Pages 子路径部署使用相对资源路径
+const isPages = process.env.PAGES_BUILD === '1';
 
 // 产物分层：vite 原生产物（dist/client，中间产物，整理后删除）→ 妙搭托管产物结构：
 //   dist/output/           index.html + public 同源资源 + routes.json（走应用权限校验）
@@ -104,10 +106,10 @@ function collectRoutePaths(srcDir: string): string[] {
 export default defineConfig(({ command }) => ({
   plugins: [react(), tailwindcss(), ...(isApk ? [] : [miaodaOutputPlugin()]), sparkJsonPlugin()],
   // 生产构建：JS/CSS 引用带 CDN 前缀（无 CDN 时退回 base path）；dev 恒为 /
-  base: isApk ? './' : command === 'build' ? cdnPrefix || basePath : '/',
+  base: isApk || isPages ? './' : command === 'build' ? cdnPrefix || basePath : '/',
   define: {
-    // 路由 basename 与资源前缀解耦，单独注入；APK 模式用相对前缀
-    'import.meta.env.MIAODA_CLIENT_BASE_PATH': JSON.stringify(isApk ? '' : basePath),
+    // 路由 basename 与资源前缀解耦，单独注入；APK 与 Pages 模式用相对前缀
+    'import.meta.env.MIAODA_CLIENT_BASE_PATH': JSON.stringify(isApk || isPages ? '' : basePath),
   },
   resolve: {
     alias: {

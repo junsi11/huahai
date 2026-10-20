@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { Volume2, VolumeX, X } from 'lucide-react';
 
-const BASE = (import.meta.env.MIAODA_CLIENT_BASE_PATH || '').replace(/\/$/, '') + '/';
+const _base = (import.meta.env.MIAODA_CLIENT_BASE_PATH || '').replace(/\/$/, '');
+const BASE = _base ? _base + '/' : '';
 
 export default function EasterEgg({ src, text, onClose }: { src: string; text?: string; onClose: () => void }) {
   const videoRef = useRef<HTMLVideoElement>(null);

@@ -15,7 +15,8 @@ import { auth } from '@/lib/auth';
 import { useAuth } from '@/lib/auth-context';
 import type { IAccount } from '@/lib/types';
 
-const BASE = (import.meta.env.MIAODA_CLIENT_BASE_PATH || '').replace(/\/$/, '') + '/';
+const _base = (import.meta.env.MIAODA_CLIENT_BASE_PATH || '').replace(/\/$/, '');
+const BASE = _base ? _base + '/' : '';
 
 export default function LoginPage() {
   const navigate = useNavigate();

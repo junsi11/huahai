@@ -32,7 +32,8 @@ import { useAuth } from '@/lib/auth-context';
 import EasterEgg from '@/components/EasterEgg';
 import { useOrientationBg } from '@/lib/use-orientation-bg';
 
-const BASE = (import.meta.env.MIAODA_CLIENT_BASE_PATH || '').replace(/\/$/, '') + '/';
+const _base = (import.meta.env.MIAODA_CLIENT_BASE_PATH || '').replace(/\/$/, '');
+const BASE = _base ? _base + '/' : '';
 
 // 公历主要节日（用于日历标注；仅节日当天，不含调休）
 const HOLIDAYS: Record<string, string> = {

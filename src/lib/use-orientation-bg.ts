@@ -3,7 +3,8 @@
 
 import { useEffect, useState } from 'react';
 
-const BASE = (import.meta.env.MIAODA_CLIENT_BASE_PATH || '').replace(/\/$/, '') + '/';
+const _base = (import.meta.env.MIAODA_CLIENT_BASE_PATH || '').replace(/\/$/, '');
+const BASE = _base ? _base + '/' : '';
 
 export interface OrientationBg {
   src: string;
